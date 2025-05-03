@@ -50,52 +50,52 @@ if [[ -z "$DEST" ]]; then
     exit 1
 fi
 
-# Step 5: 写入配置文件
+# Step 5: 写入并替换配置文件
 mkdir -p /usr/local/etc/xray
 
 cat > /usr/local/etc/xray/config.json <<EOF
-{{
+{
   "inbounds": [
-    {{
-      "port": {PORT},
+    {
+      "port": $PORT,
       "protocol": "vless",
-      "settings": {{
+      "settings": {
         "clients": [
-          {{
-            "id": "{UUID}",
+          {
+            "id": "$UUID",
             "flow": "xtls-rprx-vision",
             "level": 0,
             "email": "love@love.com"
-          }}
+          }
         ],
         "decryption": "none",
         "fallbacks": []
-      }},
-      "streamSettings": {{
+      },
+      "streamSettings": {
         "network": "tcp",
         "security": "reality",
-        "realitySettings": {{
+        "realitySettings": {
           "show": false,
-          "dest": "{DEST}:443",
+          "dest": "$DEST:443",
           "xver": 0,
           "serverNames": [
-            "{DEST}"
+            "$DEST"
           ],
-          "privateKey": "{PRIVATE_KEY}",
+          "privateKey": "$PRIVATE_KEY",
           "shortIds": [
             "0123456789abcdef"
           ]
-        }}
-      }}
-    }}
+        }
+      }
+    }
   ],
   "outbounds": [
-    {{
+    {
       "protocol": "freedom",
-      "settings": {{}}
-    }}
+      "settings": {}
+    }
   ]
-}}
+}
 EOF
 
 # 重启 Xray 服务
