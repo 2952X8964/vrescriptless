@@ -36,12 +36,17 @@ if [[ -z "$UUID" ]]; then
 fi
 
 KEY_INFO=$(xray x25519)
-PRIVATE_KEY=$(echo "$KEY_INFO" | grep "PrivateKey" | awk -F ': ' '{print $2}')
-PUBLIC_KEY=$(echo "$KEY_INFO" | grep "Password" | awk -F ': ' '{print $2}')
+PRIVATE_KEY=$(echo "$KEY_INFO" | grep -i "PrivateKey" | awk -F ': ' '{print $2}' | tr -d ' ')
+PUBLIC_KEY=$(echo "$KEY_INFO" | grep -i "Password"   | awk -F ': ' '{print $2}' | tr -d ' ')
+
 if [[ -z "$PRIVATE_KEY" || -z "$PUBLIC_KEY" ]]; then
     echo "生成密钥失败，退出。"
     exit 1
 fi
+
+echo "私钥: $PRIVATE_KEY"
+echo "公钥/密码: $PUBLIC_KEY"
+
 
 # Step 4: 输入目标网站
 read -p "请输入目标网站（如 www.cloudflare.com）: " DEST
