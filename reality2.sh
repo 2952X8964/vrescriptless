@@ -36,7 +36,7 @@ if [[ -z "$UUID" ]]; then
 fi
 
 KEY_INFO=$(xray x25519)
-PRIVATE_KEY=$(echo "$KEY_INFO" | grep "Private key" | awk -F ': ' '{print $2}')
+PRIVATE_KEY=$(echo "$KEY_INFO" | grep "PrivateKey" | awk -F ': ' '{print $2}')
 PUBLIC_KEY=$(echo "$KEY_INFO" | grep "Password" | awk -F ': ' '{print $2}')
 if [[ -z "$PRIVATE_KEY" || -z "$PUBLIC_KEY" ]]; then
     echo "生成密钥失败，退出。"
